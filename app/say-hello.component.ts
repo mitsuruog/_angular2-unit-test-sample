@@ -1,0 +1,18 @@
+import {Component, OnInit} from "angular2/core";
+import {SayHelloService} from "./say-hello.service";
+
+@Component({
+    selector: 'say-hello',
+    template: '<div>Hello</div>',
+    providers: [SayHelloService]
+})
+export class SayHelloComponent implements OnInit {
+
+    constructor(
+        private service: SayHelloService
+    ) { }
+
+    ngOnInit() {
+        console.log(this.service.say());
+    }
+}
