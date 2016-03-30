@@ -3,8 +3,8 @@
 ## Get started
 
  ```
- git clone --depth 1 https://github.com/mitsuruog/angular2-minimum-starter.git
- cd angular2-minimum-starter
+ https://github.com/mitsuruog/_angular2-unit-test-sample.git
+ cd _angular2-unit-test-sample.git
  npm install 
  npm run start
  npm run test
