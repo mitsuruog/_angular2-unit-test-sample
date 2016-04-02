@@ -1,13 +1,17 @@
 # _angular2-unit-test-sample
 
+Angular 2 unit test samples.
+
+![thumbnail](thumbnail.gif)
+
 ## Get started
 
  ```
  https://github.com/mitsuruog/_angular2-unit-test-sample.git
  cd _angular2-unit-test-sample.git
  npm install 
- npm run start
- npm run test
+ npm start
+ npm test
  ```
 
 ## License
