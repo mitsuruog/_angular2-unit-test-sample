@@ -1,5 +1,5 @@
-import { describe, it, inject, expect, beforeEachProviders } from 'angular2/testing';
-import { SayHelloService } from "./say-hello.service";
+import { describe, it, inject, expect, beforeEachProviders } from '@angular/core/testing';
+import { SayHelloService } from "./say-hello.service.ts";
 
 describe('Test: SayHelloService', () => {
 

@@ -1,0 +1,6 @@
+{
+  "server": {
+    "files": ["./mode_modules/**/*.{html,htm,css,js}", "./built/**/*"],
+    "baseDir": "./built"
+  }
+}

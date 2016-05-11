@@ -1,5 +1,5 @@
-import {Component, OnInit} from "angular2/core";
-import {SayHelloService} from "./say-hello.service";
+import {Component, OnInit} from "@angular/core";
+import {SayHelloService} from "./say-hello.service.ts";
 
 @Component({
     selector: 'say-hello',

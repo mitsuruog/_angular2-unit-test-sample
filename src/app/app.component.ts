@@ -1,12 +1,14 @@
-import {Component, OnInit} from 'angular2/core';
+///<reference path="../../typings/browser.d.ts"/>
+
+import {Component} from '@angular/core';
 import {Logger} from './common/services/logger.service';
-import {SayHelloPipe} from "./say-hello.pipe";
-import {SayHelloComponent} from "./say-hello.component";
+import {SayHelloPipe} from "./say-hello.pipe.ts";
+import {SayHelloComponent} from "./say-hello.component.ts";
 
 @Component({
   selector: 'my-app',
-  templateUrl: 'app/app.html',
-  styleUrls: ['app/app.css'],
+  templateUrl: 'src/src.html',
+  styleUrls: ['src/src.css'],
   providers: [Logger],
   directives: [SayHelloComponent],
   pipes: [SayHelloPipe]

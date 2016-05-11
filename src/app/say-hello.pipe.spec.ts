@@ -1,5 +1,5 @@
-import { describe, it, expect, beforeEach } from 'angular2/testing';
-import { SayHelloPipe } from './say-hello.pipe';
+import { describe, it, expect, beforeEach } from '@angular/core/testing';
+import { SayHelloPipe } from './say-hello.pipe.ts';
 
 describe('Test: SayHelloPipe', () => {
 
