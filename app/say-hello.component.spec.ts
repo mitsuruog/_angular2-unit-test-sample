@@ -1,7 +1,7 @@
-import {describe, it, injectAsync, expect, beforeEachProviders} from '@angular/core/testing';
-import {TestComponentBuilder} from '@angular/compiler/testing';
-import {Component} from '@angular/core';
-import {SayHelloComponent} from './say-hello.component';
+import { describe, it, inject, async, expect, beforeEachProviders } from '@angular/core/testing';
+import { TestComponentBuilder, ComponentFixture } from '@angular/compiler/testing';
+import { Component } from '@angular/core';
+import { SayHelloComponent } from './say-hello.component';
 
 @Component({
   selector: 'test-container',
@@ -12,16 +12,16 @@ class TestComponent {
 }
 
 describe('Test: SayHelloComponent', () => {
+  let builder;
+  beforeEach(inject([TestComponentBuilder], (tcb) => {
+    builder = tcb;
+  }));
 
-  beforeEachProviders(() => {
-    TestComponentBuilder
-  });
-
-  it('Should display Hello', injectAsync([TestComponentBuilder], (tcb:TestComponentBuilder) => {
+  it('Should display Hello', async(() => {
     let template = '<say-hello></say-hello>';
-    return tcb.overrideTemplate(TestComponent, template)
+    return builder.overrideTemplate(TestComponent, template)
       .createAsync(TestComponent)
-      .then((fixture) => {
+      .then((fixture: ComponentFixture<TestComponent>) => {
         let div = fixture.nativeElement.querySelector('div');
         expect(div).toHaveText('Hello');
       });
