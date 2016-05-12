@@ -1,4 +1,4 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component} from '@angular/core';
 import {Logger} from './common/services/logger.service';
 import {SayHelloPipe} from "./say-hello.pipe";
 import {SayHelloComponent} from "./say-hello.component";

@@ -1,5 +1,6 @@
-import { describe, it, injectAsync, expect, beforeEachProviders, TestComponentBuilder } from 'angular2/testing';
-import { Component } from 'angular2/core';
+import { describe, it, injectAsync, expect, beforeEachProviders } from '@angular/core/testing';
+import { TestComponentBuilder } from '@angular/compiler/testing';
+import { Component } from '@angular/core';
 import { SayHelloComponent } from './say-hello.component';
 
 @Component({

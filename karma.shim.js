@@ -1,69 +1,86 @@
-/** Tun on full stack traces in errors to help debugging */
+/*global jasmine, __karma__, window*/
 Error.stackTraceLimit = Infinity;
-
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000;
 
-/**
- * Cancel Karma's synchronous start,
- * we will call `__karma__.start()` later, once all the specs are loaded.
- */
-__karma__.loaded = function() { };
+__karma__.loaded = function () {
+};
 
+
+function isJsFile(path) {
+  return path.slice(-3) == '.js';
+}
+
+function isSpecFile(path) {
+  return path.slice(-8) == '.spec.js';
+}
+
+function isBuiltFile(path) {
+  var builtPath = '/base/app/';
+  return isJsFile(path) && (path.substr(0, builtPath.length) == builtPath);
+}
+
+var allSpecFiles = Object.keys(window.__karma__.files)
+  .filter(isSpecFile)
+  .filter(isBuiltFile);
+
+// Load our SystemJS configuration.
 System.config({
-  packages: {
-    'base/app': {
-      defaultExtension: false,
-      format: 'register',
-      map: Object.keys(window.__karma__.files).
-        filter(onlyAppFiles).
-        reduce(function createPathRecords(pathsMapping, appPath) {
-					/**
-					 * Creates local module name mapping to global path with karma's fingerprint in path, e.g.:
-					 * './hero.service': '/base/build/js/hero.service.js?f4523daf879cfb7310ef6242682ccf10b2041b3e'
-					 */
-          var moduleName = appPath
-            .replace(/^\/base\/app\//, './')
-            .replace(/\.js$/, '');
-
-          pathsMapping[moduleName] = appPath + '?' + window.__karma__.files[appPath]
-
-          return pathsMapping;
-        }, {})
-    }
-  }
+  baseURL: '/base'
 });
 
-System.import('angular2/testing').then(function(testing) {
-  return System.import('angular2/platform/testing/browser').then(function(testing_platform_browser) {
-    testing.setBaseTestProviders(testing_platform_browser.TEST_BROWSER_PLATFORM_PROVIDERS,
-      testing_platform_browser.TEST_BROWSER_APPLICATION_PROVIDERS);
+System.config(
+  {
+    map: {
+      'rxjs': 'node_modules/rxjs',
+      '@angular': 'node_modules/@angular',
+      'app': 'app'
+    },
+    packages: {
+      'app': {
+        main: 'main.js',
+        defaultExtension: 'js'
+      },
+      '@angular/core': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      '@angular/compiler': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      '@angular/common': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      '@angular/platform-browser': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      '@angular/platform-browser-dynamic': {
+        main: 'index.js',
+        defaultExtension: 'js'
+      },
+      'rxjs': {
+        defaultExtension: 'js'
+      }
+    }
   });
-})
-  .then(function() {
-    return Promise.all(
-      Object.keys(window.__karma__.files) // All files served by Karma.
-        .filter(onlySpecFiles)
-        .map(function(moduleName) {
-          /** Loads all spec files via their global module names (e.g. 'base/src/app/hero.service.spec') */
-          return System.import(moduleName);
-        }));
-  })
-  .then(function() {
-    __karma__.start();
-  }, function(error) {
-    __karma__.error(error.stack || error);
-  });
 
-function filePath2moduleName(filePath) {
-  return filePath
-    .replace(/^\//, '') // remove / prefix
-    .replace(/\.\w+$/, ''); // remove suffix
-}
+Promise.all([
+  System.import('@angular/core/testing'),
+  System.import('@angular/platform-browser-dynamic/testing')
+]).then(function (providers) {
+  var testing = providers[0];
+  var testingBrowser = providers[1];
 
-function onlyAppFiles(filePath) {
-  return /^\/base\/app\/.*\.js$/.test(filePath);
-}
+  testing.setBaseTestProviders(testingBrowser.TEST_BROWSER_DYNAMIC_PLATFORM_PROVIDERS,
+    testingBrowser.TEST_BROWSER_DYNAMIC_APPLICATION_PROVIDERS);
 
-function onlySpecFiles(path) {
-  return /.spec\.js$/.test(path);
-}
+}).then(function() {
+  // Finally, load all spec files.
+  // This will run the tests directly.
+  return Promise.all(
+    allSpecFiles.map(function (moduleName) {
+      return System.import(moduleName);
+    }));
+}).then(__karma__.start, __karma__.error);
