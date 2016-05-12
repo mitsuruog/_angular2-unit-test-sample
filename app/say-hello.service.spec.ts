@@ -1,18 +1,18 @@
-import { describe, it, inject, expect, beforeEachProviders } from '@angular/core/testing';
-import { SayHelloService } from "./say-hello.service";
+import {describe, it, inject, expect, beforeEachProviders} from '@angular/core/testing';
+import {SayHelloService} from "./say-hello.service";
 
 describe('Test: SayHelloService', () => {
 
-    beforeEachProviders(() => [
-        SayHelloService
-    ]);
+  beforeEachProviders(() => [
+    SayHelloService
+  ]);
 
-    it('Should service exist', inject([SayHelloService], (testee: SayHelloService) => {
-        expect(testee).toBeDefined();
-    }));
+  it('Should service exist', inject([SayHelloService], (testee:SayHelloService) => {
+    expect(testee).toBeDefined();
+  }));
 
-    it('Should say Hello', inject([SayHelloService], (testee: SayHelloService) => {
-        expect(testee.say()).toEqual('Hello');
-    }));
+  it('Should say Hello', inject([SayHelloService], (testee:SayHelloService) => {
+    expect(testee.say()).toEqual('Hello');
+  }));
 
 });

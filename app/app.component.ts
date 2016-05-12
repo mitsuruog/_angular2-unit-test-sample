@@ -14,7 +14,8 @@ import {SayHelloComponent} from "./say-hello.component";
 
 export class AppComponent {
 
-  constructor(private logger: Logger) { }
+  constructor(private logger:Logger) {
+  }
 
   ngOnInit() {
     this.logger.log('Alo!! Alo!!');

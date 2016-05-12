@@ -16,7 +16,7 @@ describe('Test: AppComponent', () => {
     Logger
   ]);
 
-  it('AppComponentが存在すること', inject([AppComponent, Logger], (testee: AppComponent) => {
+  it('AppComponentが存在すること', inject([AppComponent, Logger], (testee:AppComponent) => {
     expect(testee).toBeDefined();
   }));
 
