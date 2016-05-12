@@ -4,7 +4,7 @@ import {
   inject,
   expect,
   beforeEachProviders,
-} from 'angular2/testing';
+} from '@angular/core/testing';
 
 import {Logger} from './common/services/logger.service';
 import {AppComponent} from './app.component';
